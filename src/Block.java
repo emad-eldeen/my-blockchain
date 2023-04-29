@@ -1,12 +1,16 @@
 import java.util.Random;
 
+// represents a block in a blockchain
 public class Block {
     int id;
     long timeStamp;
+    // hash of the previous block in the chain
     String prevHash;
     String hash;
     long magicNumber;
+    // time needed to find the magic number
     double hashProcessingTime;
+    // name of the miner
     String miner;
     String data;
     BlockChain.NModification nModification = BlockChain.NModification.NO_MODIFICATION;
@@ -16,7 +20,6 @@ public class Block {
     public void setId(int id) {
         this.id = id;
     }
-
     public void setMiner(String miner) {
         this.miner = miner;
     }
@@ -53,6 +56,7 @@ public class Block {
         this.hashProcessingTime = setHashProcessingTime;
     }
 
+    // generate a new random magic number for the block
     public void generateNewMagicNumber() {
         Random random = new Random();
         magicNumber = random.nextLong();

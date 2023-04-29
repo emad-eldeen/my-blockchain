@@ -8,18 +8,17 @@ import java.util.stream.Collectors;
 public class BlockChain {
     final private List<Block> chain = new ArrayList<>();
     private static final Pattern STARTS_WITH_ZERO = Pattern.compile("^0+");
-    private final List<Miner> miners = new ArrayList<>();
     private final List<Transaction> transactions = new ArrayList<>();
     private int numberOfZeros = 0;
     private String latestHash = "0";
     public static final int TARGET_CHAIN_SIZE = 15;
+    // the amount of virtual currency awarded to the miner generating a valid block
     public static final double MINING_AWARD = 100.0;
-    private final float MINIMUM_PROCESSING_TIME = 0.2f;
-    private final float MAXIMUM_PROCESSING_TIME = 0.1f;
 
 
     public BlockChain() {}
 
+    // modification of the number of zeros at the start of the hash
     public enum NModification {
         INCREASE(1),
         DECREASE(-1),
@@ -78,7 +77,14 @@ public class BlockChain {
         }
     }
 
+    /**
+     * checks hash processing time of the block and modifies the number
+     * of starting zeros that should be on the next hash
+     * @param block
+     */
     private void checkProcessingTime(Block block) {
+        float MINIMUM_PROCESSING_TIME = 0.2f;
+        float MAXIMUM_PROCESSING_TIME = 0.1f;
         if (block.hashProcessingTime < MINIMUM_PROCESSING_TIME) {
             block.setnModification(NModification.INCREASE);
             numberOfZeros++;
@@ -98,7 +104,8 @@ public class BlockChain {
                 case NO_MODIFICATION -> System.out.println("N was not changed");
             }
             System.out.println();
-        };
+        }
+        System.out.println("End of chain.");
     }
 
     public synchronized double getEntityBalance(String entity) {

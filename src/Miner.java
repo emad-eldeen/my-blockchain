@@ -5,7 +5,6 @@ public class Miner implements Runnable {
 
     public Miner(BlockChain blockChain) {
         this.blockChain = blockChain;
-
     }
 
     public String getName() {
@@ -22,6 +21,8 @@ public class Miner implements Runnable {
         }
     }
 
+    // keeps generating magic numbers until the reaching a block hash that has a valid pattern
+    // according to the chain
     private void findMagicNumber(Block block) {
         String hash;
         long startTime = System.nanoTime();
